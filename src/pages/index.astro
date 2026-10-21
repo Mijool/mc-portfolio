@@ -1,7 +1,8 @@
 ---
 // src/pages/index.astro
-const profilePic = "../src/images/LinkedInPicture9-26.png";
-const resumePdf = "../src/images/Camarena_Miguel_2026Q4.pdf";
+import profilePic from "../images/LinkedInPicture9-26.png";
+import resumePdf from "../images/Camarena_Miguel_2026Q4.pdf";
+//imports photos to be loaded later on
 ---
 
 <html lang="en">
@@ -14,9 +15,9 @@ const resumePdf = "../src/images/Camarena_Miguel_2026Q4.pdf";
     <nav>
       <a href="/">Home - M. Camarena</a>
       <div>
-        <a href="https://www.linkedin.com/in/mcamarena1/" target="_blank">LinkedIn - mcamarena1</a>
+        <a href="https://www.linkedin.com/in/mcamarena1/" target="_blank" rel="noopener">LinkedIn - mcamarena1</a>
         <a href="mailto:mcamarena@my.dom.edu">Email: mcamarena@my.dom.edu</a>
-        <a href="https://github.com/mijool/" target="_blank">GitHub</a>
+        <a href="https://github.com/mijool/" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </nav>
 
@@ -40,7 +41,7 @@ const resumePdf = "../src/images/Camarena_Miguel_2026Q4.pdf";
           <object data={resumePdf} type="application/pdf" width="100%" height="600px">
             <iframe src={resumePdf} loading="lazy" width="100%" height="600px" style={{ border:'none'}}/>
                 <p>Your browser does not support embedded PDFs to view it</p>
-                <a href={resumePdf}>Download the PDF</a>
+                <a href={resumePdf} target="_blank" rel="noopener">Download the PDF</a>
 
           </object>
 
@@ -48,7 +49,7 @@ const resumePdf = "../src/images/Camarena_Miguel_2026Q4.pdf";
       </div>
 
       <figure>
-        <img src={profilePic} alt="Miguel Camarena" />
+        <img src={profilePic.src} alt="Miguel Camarena" />
       </figure>
     </main>
   </body>
