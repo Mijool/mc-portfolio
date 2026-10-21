@@ -1,0 +1,328 @@
+---
+// src/pages/projects.astro
+
+// ==========================================================================
+// EDIT YOUR PROJECTS HERE
+// Provide ONE file source (src).
+// It will be cropped for the thumbnail and shown in full in the modal.
+// Note: The thumbnail <img> requires an image format (.png, .jpg, .webp).
+// ==========================================================================
+const PROJECTS = [
+  {
+    title: "Data Visualization Dashboard",
+    src: "/images/project1-full.png",
+    description: "An interactive dashboard built with Python and React to visualize mathematical models and real-time datasets."
+  },
+  {
+    title: "Algorithms Visualizer",
+    src: "/images/project2-full.png",
+    description: "A web application that helps students understand complex algorithms through step-by-step visual execution."
+  },
+  {
+    title: "Database Management System",
+    src: "/images/project3-full.png",
+    description: "A robust relational database designed to track and manage inventory for a local Chicago business."
+  },
+  {
+    title: "Machine Learning Classifier",
+    src: "/images/project4-full.png",
+    description: "A Python-based ML model trained to classify image datasets with high accuracy using TensorFlow."
+  },
+  {
+    title: "Portfolio Website",
+    src: "/images/project5-full.png",
+    description: "The very site you are looking at, built using Astro, HTML5, CSS3, and deployed continuously via GitHub."
+  },
+  {
+    title: "Mathematical Proofs Collection",
+    src: "/images/project6-full.png",
+    description: "A formatted collection of discrete mathematics proofs typeset in LaTeX and rendered for the web."
+  }
+];
+// ==========================================================================
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects - Miguel Camarena</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home - M. Camarena</a>
+      <div>
+        <a href="https://www.linkedin.com/in/mcamarena1/" target="_blank">LinkedIn - mcamarena1</a>
+        <a href="mailto:mcamarena@my.dom.edu">Email: mcamarena@my.dom.edu</a>
+        <a href="https://github.com/mijool/" target="_blank">GitHub</a>
+      </div>
+    </nav>
+
+    <main>
+      <h1>My Projects</h1>
+
+      <!-- Flexbox Grid for Projects -->
+      <section class="projects-grid">
+        {PROJECTS.map((project) => (
+          <div
+            class="project-card"
+            data-title={project.title}
+            data-desc={project.description}
+            data-src={project.src}
+          >
+            <!-- object-fit: cover automatically crops the full image for the thumbnail -->
+            <img src={project.src} alt={project.title} loading="lazy" />
+            <div class="card-overlay">
+              <span>Read More</span>
+            </div>
+          </div>
+        ))}
+      </section>
+    </main>
+
+    <!-- The Modal -->
+    <div id="project-modal" class="modal-backdrop hidden">
+      <div class="modal-content">
+        <button id="close-modal" aria-label="Close modal">&times;</button>
+
+        <div class="modal-left">
+          <!-- The iframe will display the exact same file in full -->
+          <iframe id="modal-iframe" src="" loading="lazy"></iframe>
+        </div>
+
+        <div class="modal-right">
+          <h2 id="modal-title">Project Title</h2>
+          <p id="modal-desc">Project Description goes here.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client-side script to handle Modal interactions -->
+    <script>
+      const cards = document.querySelectorAll('.project-card');
+      const modal = document.getElementById('project-modal');
+      const closeBtn = document.getElementById('close-modal');
+      const iframe = document.getElementById('modal-iframe');
+      const titleEl = document.getElementById('modal-title');
+      const descEl = document.getElementById('modal-desc');
+
+      // Open modal on card click
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          titleEl.textContent = card.getAttribute('data-title');
+          descEl.textContent = card.getAttribute('data-desc');
+          iframe.src = card.getAttribute('data-src');
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+      });
+
+      // Close modal function
+      const closeModal = () => {
+        modal.classList.add('hidden');
+        iframe.src = ''; // Clear iframe to free up memory
+        document.body.style.overflow = '';
+      };
+
+      // Close on X click
+      closeBtn.addEventListener('click', closeModal);
+
+      // Close on clicking outside the modal content
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #121316;
+    color: #fff;
+    font-family: "Courier New", Courier, monospace;
+    min-height: 100vh;
+  }
+
+  /* Navigation Bar */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem 2.5rem;
+    background: linear-gradient(180deg, #5b0606, transparent);
+  }
+
+  nav a {
+    color: #c3bfbf;
+    margin-right: 1.5rem;
+    text-decoration: underline;
+    transition: 0.2s;
+    font-size: clamp(1.2rem, 1.8vw, 1rem);
+    font-weight: 900;
+  }
+
+  nav a:hover { color: #c8c5a2; }
+
+  /* Main Container */
+  main {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 3.6vw, 3.2rem);
+    font-weight: 900;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Projects Flexbox Grid */
+  .projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  /* Individual Project Card */
+  .project-card {
+    flex: 1 1 300px;
+    max-width: 380px;
+    aspect-ratio: 4 / 3;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #7a1515;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* THIS CROPS YOUR FULL-SIZE IMAGE TO FIT THE THUMBNAIL BOX */
+    transition: transform 0.3s ease;
+  }
+
+  /* Dark Overlay on Hover */
+  .card-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card-overlay span {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 900;
+    border: 1px solid #7a1515;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .project-card:hover .card-overlay { opacity: 1; }
+  .project-card:hover img { transform: scale(1.05); }
+
+  /* Modal Styles */
+  .modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .modal-backdrop.hidden {
+    display: none;
+  }
+
+  .modal-content {
+    background: #121316;
+    border: 2px solid #5b0606;
+    width: 100%;
+    max-width: 1100px;
+    height: 80vh;
+    display: flex;
+    position: relative;
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+  }
+
+  #close-modal {
+    position: absolute;
+    top: -1.5rem;
+    right: -1.5rem;
+    background: #5b0606;
+    color: white;
+    border: none;
+    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+  }
+
+  #close-modal:hover { background: #ff3333; }
+
+  /* Modal Layout: Left (Iframe) / Right (Text) */
+  .modal-left {
+    flex: 2; /* takes up roughly 66% */
+    border-right: 1px solid #5b0606;
+  }
+
+  .modal-left iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #fff;
+  }
+
+  .modal-right {
+    flex: 1; /* takes up roughly 33% */
+    padding: 2.5rem;
+    overflow-y: auto;
+  }
+
+  .modal-right h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #e5b3b3;
+  }
+
+  .modal-right p {
+    color: #c3c7cf;
+    line-height: 1.6;
+    font-family: sans-serif;
+  }
+
+  /* Responsive Modal for Mobile */
+  @media (max-width: 800px) {
+    .modal-content {
+      flex-direction: column;
+    }
+    .modal-left {
+      border-right: none;
+      border-bottom: 1px solid #5b0606;
+      flex: 1;
+      height: 50%;
+    }
+    .modal-right {
+      height: 50%;
+      padding: 1.5rem;
+    }
+    #close-modal {
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+  }
+</style>

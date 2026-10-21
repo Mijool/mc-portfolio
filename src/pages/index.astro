@@ -1,16 +1,149 @@
 ---
+// src/pages/index.astro
+const profilePic = "../src/images/LinkedInPicture9-26.png";
+const resumePdf = "../src/images/Camarena_Miguel_2026Q4.pdf";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Miguel Camarena's Portfolio</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home - M. Camarena</a>
+      <div>
+        <a href="https://www.linkedin.com/in/mcamarena1/" target="_blank">LinkedIn - mcamarena1</a>
+        <a href="mailto:mcamarena@my.dom.edu">Email: mcamarena@my.dom.edu</a>
+        <a href="https://github.com/mijool/" target="_blank">GitHub</a>
+      </div>
+    </nav>
+
+    <main>
+      <div>
+        <h1>Miguel Camarena</h1>
+        <h2>B.S. Mathematics and Computer Science</h2>
+        <h3>Minor in Computer Information Systems</h3>
+
+        <h4>Expected Graduation: May 2027</h4>
+
+          <p>About me:</p>
+        <p>
+          As a first-generation Latino on an honors track in Computer Science and Mathematics at Dominican University, I bring a unique perspective and dedication to my development work. Based near Chicago, I am deeply committed to crafting efficient, scalable, and impactful solutions. My coursework and projects focus on leveraging technology to solve real-world problems.
+        </p>
+
+        <a href="/projects">Explore Projects</a>
+
+          <h4>Most Recent Resume:</h4>
+          <a href={resumePdf}>Download the PDF</a>
+          <object data={resumePdf} type="application/pdf" width="100%" height="600px">
+            <iframe src={resumePdf} loading="lazy" width="100%" height="600px" style={{ border:'none'}}/>
+                <p>Your browser does not support embedded PDFs to view it</p>
+                <a href={resumePdf}>Download the PDF</a>
+
+          </object>
+
+
+      </div>
+
+      <figure>
+        <img src={profilePic} alt="Miguel Camarena" />
+      </figure>
+    </main>
+  </body>
 </html>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #121316;
+    color: #fff;
+    font-family: "Courier New", Courier, monospace;
+    min-height: 100vh;
+  }
+
+  /* Navigation Bar */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem 2.5rem;
+    background: linear-gradient(180deg, #5b0606, transparent);
+  }
+
+  nav a {
+    color: #c3bfbf;
+    margin-right: 1.5rem;
+    font-weight: 800;
+    text-decoration: underline;
+      transition: 0.2s;
+      font-size: clamp(1.2rem, 1.8vw, 1rem); font-weight: 900; margin-bottom: 1.5rem;
+  }
+
+  nav a:hover { color: #c8c5a2; }
+
+  /* Two-Column Hero Layout */
+  main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  main > div {
+    flex: 1 1 550px;
+    max-width: 720px;
+  }
+
+  /* Headings & Text */
+  h1 { font-size: clamp(2rem, 3.6vw, 3.2rem); font-weight: 900; line-height: 1.1; }
+  h2 { font-size: clamp(1.3rem, 2.4vw, 2.1rem); font-weight: 900; line-height: 1.2; }
+  h3 { font-size: clamp(1rem, 1.8vw, 1.5rem); font-weight: 900; margin-bottom: 2rem; }
+  h4 { font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+  p, a {
+    color: #c3c7cf;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* Explore Projects Button */
+  main a[href="/projects"] {
+    display: inline-block;
+      color: #fff;
+    text-decoration: none;
+    border: 1px solid #7a1515;
+    transition: 0.2s;
+      padding: 0.6rem 1.5rem;
+      margin-bottom: 1rem;
+  }
+
+  main a[href="/projects"]:hover {
+    border-color: #ff3333;
+    background: #7a151533;
+  }
+
+  /* Right-Side Image */
+  figure {
+    flex: 0 1 320px;
+    display: flex;
+      justify-content: center;
+    align-self: flex-start;
+  }
+
+  figure img {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 1px solid #7a1515;
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.25);
+  }
+</style>
